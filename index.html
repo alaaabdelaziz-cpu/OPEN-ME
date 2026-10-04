@@ -541,12 +541,12 @@
 
       <div id="gameVictoryBox" style="display: none; width: 100%;">
         <p style="color: #ffe600; margin-top: 8px; font-size: 11px;">🏆 HAT-TRICK CHAMPION! UNLOCKED! 🏆</p>
-        <button class="btn-pixel pulse" onclick="playAudioBeep(); goToPage(3);">
+        <button class="btn-pixel pulse" onclick="playSoftChime(); stopFootballGame(); goToPage(3);">
           REVEAL SECRET LETTER 📜
         </button>
       </div>
 
-      <button class="btn-back" onclick="playAudioBeep(); stopFootballGame(); goToPage(1);">
+      <button class="btn-back" onclick="playSoftChime(); stopFootballGame(); goToPage(1);">
         ◀ BACK TO TITLE
       </button>
     </div>
@@ -571,10 +571,10 @@
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
-        <button class="btn-back" onclick="playAudioBeep(); goToPage(2);">
+        <button class="btn-back" onclick="playSoftChime(); goToPage(2);">
           ◀ BACK
         </button>
-        <button class="btn-pixel" onclick="playAudioBeep(); goToPage(4);">
+        <button class="btn-pixel" onclick="playSoftChime(); goToPage(4);">
           CONTINUE TO DATE LOG 🗓️
         </button>
       </div>
@@ -785,6 +785,11 @@
         playSweetTone(784, 0.15, 0.06);
         setTimeout(() => playSweetTone(1046, 0.2, 0.06), 70);
       } catch(e) {}
+    }
+
+    // Fallback alias for button clicks
+    function playAudioBeep() {
+      playSoftChime();
     }
 
     // Gentle kick sound

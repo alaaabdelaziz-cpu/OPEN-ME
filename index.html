@@ -539,9 +539,10 @@
         <button class="btn-pixel" style="flex: 1; padding: 10px 4px; font-size: 9px; background: #00bcd4; margin-top: 0;" onclick="shootBall('right')">➡️ RIGHT</button>
       </div>
 
-      <div id="gameVictoryBox" style="display: none; width: 100%;">
+      <div id="gameVictoryBox" style="display: none; width: 100%; z-index: 30; position: relative;">
         <p style="color: #ffe600; margin-top: 8px; font-size: 11px;">🏆 HAT-TRICK CHAMPION! UNLOCKED! 🏆</p>
-        <button class="btn-pixel pulse" onclick="playSoftChime(); stopFootballGame(); goToPage(3);">
+        <p style="color: #00f0ff; font-size: 8px; margin: 6px 0 10px 0;">[ OPENING SECRET LETTER... ]</p>
+        <button id="revealLetterBtn" class="btn-pixel pulse" style="background: #ff2a85; cursor: pointer;" onclick="proceedToLetter(event)" ontouchend="proceedToLetter(event)">
           REVEAL SECRET LETTER 📜
         </button>
       </div>
@@ -831,10 +832,43 @@
       } catch(e) {}
     }
 
-    // Page Navigation Function
+    // Page Navigation Function with guaranteed visibility handling
     function goToPage(pageNum) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + pageNum).classList.add('active');
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+        p.style.display = 'none';
+      });
+      const target = document.getElementById('page' + pageNum);
+      if (target) {
+        target.classList.add('active');
+        target.style.display = 'flex';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let autoProceedTimeout = null;
+    let isTransitioning = false;
+
+    // Transition smoothly to the secret love letter
+    function proceedToLetter(e) {
+      if (e) {
+        e.preventDefault();
+      }
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      if (autoProceedTimeout) {
+        clearTimeout(autoProceedTimeout);
+        autoProceedTimeout = null;
+      }
+
+      stopFootballGame();
+      playVictoryChime();
+      goToPage(3);
+
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 600);
     }
 
     // --- FOOTBALL SHOOTOUT MINI-GAME ---
@@ -1143,6 +1177,12 @@
             } catch(e) {}
             document.getElementById('gameVictoryBox').style.display = 'block';
             document.getElementById('shotStatus').innerText = "CHAMPION! 🏆";
+
+            // Automatically navigate to the love letter after 1.5 seconds of victory celebration!
+            if (autoProceedTimeout) clearTimeout(autoProceedTimeout);
+            autoProceedTimeout = setTimeout(() => {
+              proceedToLetter();
+            }, 1600);
           } else {
             resetBall();
           }

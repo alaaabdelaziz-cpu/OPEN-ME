@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Birthday Invitation! 🎉</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #333;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 { color: #ff6b81; }
+    button {
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.05); }
+    .hidden-details {
+      display: none;
+      margin-top: 20px;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🎉 Happy Birthday! 🎉</h1>
+    <p>You have a top-secret invitation waiting for you...</p>
+    <button onclick="revealSecret()">Click to Reveal Your Date!</button>
+
+    <div id="secret" class="hidden-details">
+      <h2>🗓️️ Next Sunday</h2>
+      <p><strong>Time:</strong> Get ready by 5:00 PM</p>
+      <p><strong>Dress Code:</strong> Cute & Casual</p>
+      <p><strong>Location:</strong> Secret spot! (Pick up at your house)</p>
+      <p>❤️ Can't wait to celebrate you! ❤️</p>
+    </div>
+  </div>
+
+  <script>
+    function revealSecret() {
+      document.getElementById('secret').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
